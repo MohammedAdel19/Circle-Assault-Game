@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+
+int count_non_zero(int Arr[], int n)
+{
+	int counter = 0;
+	for (int i = 0; i < n; i++)
+		if (Arr[i] != 0)
+			counter++;
+	return counter;
+}
+
+int Get_Non_Zero(int Arr[], int n)
+{
+	for (int i = 0; i < n; i++)
+		if (Arr[i] == 0)
+			continue;
+		else
+			return Arr[i];
+}
+
+void Next_Element(int Arr[], int n, int& turn)
+{
+	while (true)
+	{
+		if (turn == n - 1)
+			turn = 0;
+		else
+			turn++;
+		if (Arr[turn] == 0)
+			continue;
+		else
+			break;
+	}
+}
+
+
+int main()
+{
+	int n,m;
+	cin >> n >> m;
+	int turn = m - 1;
+	int* Arr = new int[n];
+	for (int i = 1; i <= n; i++)
+		Arr[i - 1] = i;
+	while (count_non_zero(Arr, n) > 1)
+	{
+		Next_Element(Arr, n, turn);
+		Arr[turn] = 0;
+		Next_Element(Arr, n, turn);
+	}
+	cout << Get_Non_Zero(Arr, n);
+}
